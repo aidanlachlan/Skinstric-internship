@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
+import LeftButton from "../components/LeftButton";
+import RightButton from "../components/RightButton";
+import "../animations.css";
 
 export default function Home() {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <>
       <div className="relative h-screen w-full overflow-hidden flex flex-col">
@@ -10,14 +15,24 @@ export default function Home() {
           {/* Left wrapper */}
           <div className="relative flex items-center justify-center">
             <div className="absolute w-[300px] h-[300px] border border-dotted border-[#A0A4AB] rotate-45 -left-[230px]" />
-            <button className="w-[30px] h-[30px] z-10 relative">
-              <img src="assets/skinstric-button-left.png" alt="" />
-            </button>
-            <span className="text-[10px] pl-2">DISCOVER A.I.</span>
+            <LeftButton
+              to="/"
+              className="hover:scale-105"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              DISCOVER A.I.
+            </LeftButton>
           </div>
 
           {/* Center text */}
-          <div className="text-center z-10">
+          <div
+            className={`relative z-100 text-center transition-all duration-700 ease-in-out ${
+              isHovered
+                ? "transform translate-x-[-160px]"
+                : "transform translate-x-0"
+            }`}
+          >
             <h1 className="font-[Roobert TRIAL] font-light text-[64px] leading-[60px] tracking-[-0.07em]">
               Sophisticated
               <br />
@@ -28,10 +43,14 @@ export default function Home() {
           {/* Right wrapper */}
           <div className="relative flex items-center justify-center">
             <div className="absolute w-[300px] h-[300px] border border-dotted border-[#A0A4AB] rotate-45 -right-[230px]" />
-            <span className="text-[10px] pr-2">TAKE TEST</span>
-            <button className="w-[30px] h-[30px] z-10 relative">
-              <img src="assets/skinstric-button-right.png" alt="" />
-            </button>
+            <RightButton
+              to="/"
+              className="hover:scale-105"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              TAKE TEST
+            </RightButton>
           </div>
         </main>
 

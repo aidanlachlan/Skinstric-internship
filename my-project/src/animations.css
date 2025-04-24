@@ -1,0 +1,8 @@
+.text-slide {
+    transition: transform 0.7s ease-in-out;
+  }
+  
+  .text-slide-left-hover {
+    transform: translateX(-160px);
+    text-align: left;
+  }
