@@ -1,22 +1,22 @@
 @keyframes rotate {
   0% {
-    transform: rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg);
   }
   100% {
-    transform: rotate(405deg);
+    transform: translate(-50%, -50%) rotate(405deg);
   }
 }
 
 .spin-slow {
-  animation: rotate 60s linear infinite;
+  animation: rotate 45s linear infinite;
 }
 
 .spin-slower {
-  animation: rotate 120s linear infinite;
+  animation: rotate 90s linear infinite;
 }
 
 .spin-slowest {
-  animation: rotate 240s linear infinite;
+  animation: rotate 135s linear infinite;
 }
 
 .spin-slow,
