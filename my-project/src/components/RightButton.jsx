@@ -8,8 +8,8 @@ const RightButton = ({ to, children, onMouseEnter, onMouseLeave, className = "" 
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
   >
-    <span className="text-[14px] pr-2">{children}</span>
-    <button className="w-[30px] h-[30px] z-10 relative">
+    <span className="text-[14px] pr-4">{children}</span>
+    <button className="w-[40px] h-[40px] z-10 relative">
       <img src="assets/skinstric-button-right.png" alt="Right button" />
     </button>
   </Link>

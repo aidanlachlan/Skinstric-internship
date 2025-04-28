@@ -8,15 +8,15 @@
 }
 
 .spin-slow {
-  animation: rotate 45s linear infinite;
+  animation: rotate 60s linear infinite;
 }
 
 .spin-slower {
-  animation: rotate 90s linear infinite;
+  animation: rotate 120s linear infinite;
 }
 
 .spin-slowest {
-  animation: rotate 135s linear infinite;
+  animation: rotate 240s linear infinite;
 }
 
 .spin-slow,
