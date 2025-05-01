@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import LeftButton from "../components/LeftButton";
 import { useNavigate } from "react-router-dom";
+import '../animations.css'
 
 const Testing = () => {
   const questions = ["Introduce Yourself", "Where are you from?"];
@@ -9,6 +10,8 @@ const Testing = () => {
   const [caption, setCaption] = useState("CLICK TO TYPE");
   const [placeholder, setPlaceholder] = useState(questions[0]);
   const [inputValue, setInputValue] = useState("");
+  const [answers, setAnswers] = useState({ name: "", location: "" });
+
   const navigate = useNavigate()
 
   const handleFocus = () => {
@@ -23,22 +26,35 @@ const Testing = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(`Answer to "${questions[currentQuestionIndex]}": ${inputValue}`);
-
-    const nextIndex = currentQuestionIndex + 1;
-    if (nextIndex < questions.length) {
-      setCurrentQuestionIndex(nextIndex);
+  
+    if (currentQuestionIndex === 0) {
+      setAnswers((prev) => ({ ...prev, name: inputValue }));
+      setCurrentQuestionIndex(1);
       setCaption("CLICK TO TYPE");
-      setPlaceholder(questions[nextIndex]);
+      setPlaceholder(questions[1]);
       setInputValue("");
     } else {
-      console.log("All questions answered!");
-      navigate('/analysis')
+      const finalAnswers = { ...answers, location: inputValue };
+  
+      try {
+        const res = await fetch("https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseOne", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(finalAnswers),
+        });
+  
+        if (!res.ok) throw new Error("Failed to submit");
+        localStorage.setItem("userAnswers", JSON.stringify(finalAnswers));
+        console.log("Submitted successfully:", finalAnswers);
+        navigate("/analysis");
+      } catch (err) {
+        console.error("Error submitting form:", err);
+      }
     }
   };
+  
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">

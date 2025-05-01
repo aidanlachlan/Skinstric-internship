@@ -7,6 +7,14 @@
   }
 }
 
+.spin-fast {
+  animation: rotate 15s linear infinite;
+}
+
+.spin {
+  animation: rotate 30s linear infinite;
+}
+
 .spin-slow {
   animation: rotate 60s linear infinite;
 }

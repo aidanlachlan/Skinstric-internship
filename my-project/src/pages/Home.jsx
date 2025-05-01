@@ -10,9 +10,9 @@ export default function Home() {
 
   const getTranslateX = () => {
     if (isRightHovered) {
-      return "-32vw"; // Adjust this value as needed
+      return "-34vw"; // Adjust this value as needed
     } else if (isLeftHovered) {
-      return "30vw"; // Adjust this value as needed
+      return "32vw"; // Adjust this value as needed
     } else {
       return "0vw";
     }
@@ -20,9 +20,9 @@ export default function Home() {
 
   const getInnerSpanTranslateX = () => {
     if (isRightHovered) {
-      return "-6vw"; // Adjust this value for the inner span
+      return "-5.5vw"; // Adjust this value for the inner span
     } else if (isLeftHovered) {
-      return "6vw"; // Adjust this value for the inner span
+      return "5.5vw"; // Adjust this value for the inner span
     } else {
       return "0vw";
     }
