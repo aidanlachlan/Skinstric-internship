@@ -1,12 +1,83 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Header from "../components/Header";
 import LeftButton from "../components/LeftButton";
 import "../animations.css";
+import { useNavigate } from "react-router-dom";
 
 const Analysis = () => {
+  const fileInputRef = useRef(null);
+  const [demographicData, setDemographicData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleGalleryClick = () => {
+    fileInputRef.current.click(); // Open the hidden file input
+  };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const base64Image = reader.result.split(",")[1]; // remove data:image/... prefix
+
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ image: base64Image }),
+          }
+        );
+
+        const result = await response.json();
+        console.log("AI Response:", result);
+
+        if (result.success) {
+            setDemographicData(result.data);
+            sessionStorage.setItem("demographicData", JSON.stringify(result.data));
+          
+            setTimeout(() => {
+              setIsLoading(false);
+              navigate("/select");
+            }, 1000);
+          } else {
+            console.warn("API response was not successful:", result);
+            setIsLoading(false); // ensure loading ends even on unexpected result
+          }          
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
+    };
+
+    reader.readAsDataURL(file); // Convert image to Base64
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-white-custom">
+        <div className="relative w-[300px] h-[300px]">
+          <div className="absolute w-[400px] h-[400px] border border-dotted border-[2px] border-[#E5E7EB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-fast" />
+          <div className="absolute w-[350px] h-[350px] border border-dotted border-[2px] border-[#D1D5DB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin" />
+          <div className="absolute w-[300px] h-[300px] border border-dotted border-[2px] border-[#A0A4AB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slow" />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-lg text-center">
+            PREPARING YOUR
+            <br />
+            ANALYSIS...
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
-      {/* Top bar container: Header + Heading */}
+      {/* Top bar */}
       <div className="absolute top-0 left-0 right-0 px-8 bg-white-custom z-10">
         <div className="flex items-center justify-between h-[48px]">
           <Header />
@@ -14,11 +85,11 @@ const Analysis = () => {
         <h1 className="mt-8 font-bold">TO START ANALYSIS</h1>
       </div>
 
-      {/* Full-screen image layout */}
+      {/* Full-screen layout */}
       <div className="flex h-screen">
         {/* Left Half */}
         <div className="w-1/2 flex items-center justify-center relative">
-          {/* Spinning Decorative Diamonds (Left) */}
+          {/* Decorative diamonds */}
           <div className="absolute w-[400px] h-[400px] border border-dotted border-[2px] border-[#E5E7EB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-fast" />
           <div className="absolute w-[350px] h-[350px] border border-dotted border-[2px] border-[#D1D5DB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin" />
           <div className="absolute w-[300px] h-[300px] border border-dotted border-[2px] border-[#A0A4AB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slow" />
@@ -31,21 +102,22 @@ const Analysis = () => {
             />
           </button>
 
-          {/* Flex container for line and label (Left) */}
           <div className="absolute left-[calc(50%+60px)] top-1/2 transform -translate-y-1/2 z-10 flex items-center gap-2">
             <div className="w-[100px] h-[2px] bg-black" />
-            <span className="text-md font-roobert font-semi-bold">Take a photo to begin</span>
+            <span className="text-md font-roobert font-semi-bold">
+              Access Camera
+            </span>
           </div>
         </div>
 
         {/* Right Half */}
         <div className="w-1/2 flex items-center justify-center relative">
-          {/* Spinning Decorative Diamonds (Right) */}
+          {/* Decorative diamonds */}
           <div className="absolute w-[400px] h-[400px] border border-dotted border-[2px] border-[#E5E7EB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-fast" />
           <div className="absolute w-[350px] h-[350px] border border-dotted border-[2px] border-[#D1D5DB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin" />
           <div className="absolute w-[300px] h-[300px] border border-dotted border-[2px] border-[#A0A4AB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slow" />
 
-          <button className="relative z-10">
+          <button className="relative z-10" onClick={handleGalleryClick}>
             <img
               src="assets/skinstric-gallery-icon.png"
               className="w-[100px] h-[100px]"
@@ -53,10 +125,19 @@ const Analysis = () => {
             />
           </button>
 
-          {/* Flex container for line and label (Right) */}
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+          />
+
           <div className="absolute right-[calc(50%+60px)] top-1/2 transform -translate-y-1/2 z-10 flex items-center gap-2 flex-row-reverse text-right">
             <div className="w-[100px] h-[2px] bg-black" />
-            <span className="text-md font-roobert font-semi-bold">Upload from gallery</span>
+            <span className="text-md font-roobert font-semi-bold">
+              Access Gallery
+            </span>
           </div>
         </div>
       </div>
@@ -75,5 +156,3 @@ const Analysis = () => {
 };
 
 export default Analysis;
-
-
