@@ -4,6 +4,7 @@ import Testing from "./pages/Testing";
 import Analysis from "./pages/Analysis";
 import Select from "./pages/Select";
 import Demographics from "./pages/Demographics";
+import Camera from "./pages/Camera";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/analysis" element={<Analysis />} />
           <Route path="/select" element={<Select />} />
           <Route path='/demographics' element={<Demographics />} />
+          <Route path='/camera' element={<Camera />} />
         </Routes>
       </BrowserRouter>
     </>

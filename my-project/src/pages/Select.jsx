@@ -68,7 +68,7 @@ const Select = () => {
       </div>
       <div className="absolute right-8 bottom-8">
         <RightButton
-          to="/analysis"
+          to="/demographics"
           className="hover:scale-105 transition-transform"
         >
           GET SUMMARY

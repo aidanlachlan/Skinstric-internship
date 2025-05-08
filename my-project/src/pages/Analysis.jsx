@@ -2,13 +2,33 @@ import React, { useRef, useState } from "react";
 import Header from "../components/Header";
 import LeftButton from "../components/LeftButton";
 import "../animations.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Analysis = () => {
   const fileInputRef = useRef(null);
   const [demographicData, setDemographicData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isCameraLoading, setIsCameraLoading] = useState(false);
   const navigate = useNavigate();
+
+  const handleCameraClick = async () => {
+    setIsCameraLoading(true);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      // Stop the stream immediately – we'll re-request it on the camera page
+      stream.getTracks().forEach((track) => track.stop());
+
+      // Slight delay just for UI polish, then navigate
+      setTimeout(() => {
+        setIsCameraLoading(false);
+        navigate("/camera");
+      }, 1000); // adjust as needed
+    } catch (error) {
+      console.error("Camera access failed:", error);
+      setIsCameraLoading(false);
+      // Optionally show an error message here
+    }
+  };
 
   const handleGalleryClick = () => {
     fileInputRef.current.click(); // Open the hidden file input
@@ -39,17 +59,20 @@ const Analysis = () => {
         console.log("AI Response:", result);
 
         if (result.success) {
-            setDemographicData(result.data);
-            sessionStorage.setItem("demographicData", JSON.stringify(result.data));
-          
-            setTimeout(() => {
-              setIsLoading(false);
-              navigate("/select");
-            }, 1000);
-          } else {
-            console.warn("API response was not successful:", result);
-            setIsLoading(false); // ensure loading ends even on unexpected result
-          }          
+          setDemographicData(result.data);
+          sessionStorage.setItem(
+            "demographicData",
+            JSON.stringify(result.data)
+          );
+
+          setTimeout(() => {
+            setIsLoading(false);
+            navigate("/select");
+          }, 1000);
+        } else {
+          console.warn("API response was not successful:", result);
+          setIsLoading(false); // ensure loading ends even on unexpected result
+        }
       } catch (error) {
         console.error("Upload failed:", error);
       }
@@ -57,6 +80,26 @@ const Analysis = () => {
 
     reader.readAsDataURL(file); // Convert image to Base64
   };
+
+  if (isCameraLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-white-custom">
+        <div className="relative w-[300px] h-[300px]">
+          <div className="absolute w-[400px] h-[400px] border border-dotted border-[2px] border-[#E5E7EB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-fast" />
+          <div className="absolute w-[350px] h-[350px] border border-dotted border-[2px] border-[#D1D5DB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin" />
+          <div className="absolute w-[300px] h-[300px] border border-dotted border-[2px] border-[#A0A4AB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slow" />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[60%] text-center">
+            <img
+              src="assets/skinstric-camera-icon.png"
+              alt="Camera Icon"
+              className="w-[60px] h-[60px] mx-auto mb-2"
+            />
+            <div className="font-bold text-lg">SETTING UP CAMERA...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -94,7 +137,7 @@ const Analysis = () => {
           <div className="absolute w-[350px] h-[350px] border border-dotted border-[2px] border-[#D1D5DB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin" />
           <div className="absolute w-[300px] h-[300px] border border-dotted border-[2px] border-[#A0A4AB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slow" />
 
-          <button className="relative z-10">
+          <button className="relative z-10" onClick={handleCameraClick}>
             <img
               src="assets/skinstric-camera-icon.png"
               className="w-[100px] h-[100px]"
