@@ -65,12 +65,12 @@ const Testing = () => {
 
       <main className="flex-1 relative overflow-hidden">
         {/* Decorative Dotted Diamonds */}
-        <div className="absolute w-[500px] h-[500px] border border-dotted border-[2px] border-[#E5E7EB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slow" />
-        <div className="absolute w-[450px] h-[450px] border border-dotted border-[2px] border-[#D1D5DB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slower" />
-        <div className="absolute w-[400px] h-[400px] border border-dotted border-[2px] border-[#A0A4AB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slowest" />
+        <div className="absolute w-[500px] h-[500px] border border-dotted border-[2px] border-[#E5E7EB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slow max-md:w-[400px] max-md:h-[400px]" />
+        <div className="absolute w-[450px] h-[450px] border border-dotted border-[2px] border-[#D1D5DB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slower max-md:w-[350px] max-md:h-[350px]" />
+        <div className="absolute w-[400px] h-[400px] border border-dotted border-[2px] border-[#A0A4AB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slowest max-md:w-[300px] max-md:h-[300px]" />
 
         {/* Absolute Centered Content */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[58%] z-10 flex flex-col items-center">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center">
           <div className="caption mb-4 text-[16px] text-gray-500">{caption.toUpperCase()}</div>
           <form onSubmit={handleSubmit}>
             <input
@@ -80,7 +80,7 @@ const Testing = () => {
               onChange={(e) => setInputValue(e.target.value)}
               onFocus={handleFocus}
               onBlur={handleBlur}
-              className="py-2 border-b border-black text-center text-[40px] text-black placeholder:text-black bg-transparent outline-none focus:ring-0"
+              className="py-2 border-b border-black text-center text-[40px] text-black placeholder:text-black bg-transparent outline-none focus:ring-0 mb-[48px] max-md:text-[28px] max-md:placeholder:text-[28px]"
               style={{
                 display: "inline-block",
                 width: "auto",

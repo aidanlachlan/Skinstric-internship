@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const RightButton = ({ to, children, onMouseEnter, onMouseLeave, className = "" }) => (
   <Link
     to={to}
-    className={`relative flex items-center justify-center ${className}`}
+    className={`relative flex items-center justify-end ${className}`}
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
   >

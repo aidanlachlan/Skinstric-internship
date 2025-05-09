@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import LeftButton from "../components/LeftButton";
 import RightButton from "../components/RightButton";
 import "../animations.css";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [isLeftHovered, setIsLeftHovered] = useState(false);
@@ -10,9 +11,9 @@ export default function Home() {
 
   const getTranslateX = () => {
     if (isRightHovered) {
-      return "-34vw"; // Adjust this value as needed
+      return "-33vw"; // Adjust this value as needed
     } else if (isLeftHovered) {
-      return "32vw"; // Adjust this value as needed
+      return "33vw"; // Adjust this value as needed
     } else {
       return "0vw";
     }
@@ -20,9 +21,9 @@ export default function Home() {
 
   const getInnerSpanTranslateX = () => {
     if (isRightHovered) {
-      return "-5.5vw"; // Adjust this value for the inner span
+      return "-5.7vw"; // Adjust this value for the inner span
     } else if (isLeftHovered) {
-      return "5.5vw"; // Adjust this value for the inner span
+      return "5.7vw"; // Adjust this value for the inner span
     } else {
       return "0vw";
     }
@@ -36,71 +37,96 @@ export default function Home() {
           ENTER CODE
         </button>
       </div>
-      <main className="flex-1 flex items-center justify-between px-8 relative overflow-hidden">
-        {/* Left Button + Border (fades when RIGHT is hovered) */}
-        <div
-          className={`relative flex items-center justify-center transition-opacity duration-500 ${
-            isRightHovered ? "opacity-0" : "opacity-100"
-          }`}
-        >
+      <main className="flex-1 relative overflow-hidden">
+        {/* DESKTOP layout - visible above 1300px */}
+        <div className="hidden xl:flex items-center justify-between px-8 h-full">
+          {/* Left Button + Border */}
           <div
-            className={`absolute w-[500px] h-[500px] border border-dotted border-[#A0A4AB] rotate-45 -left-[400px] transition-opacity duration-500 ${
+            className={`relative flex items-center justify-center transition-opacity duration-500 ${
               isRightHovered ? "opacity-0" : "opacity-100"
             }`}
-          />
-          <LeftButton
-            to="/"
-            className="hover:scale-105 transition-transform"
-            onMouseEnter={() => setIsLeftHovered(true)}
-            onMouseLeave={() => setIsLeftHovered(false)}
           >
-            DISCOVER A.I.
-          </LeftButton>
-        </div>
-
-        {/* Center Text (slides left/right) */}
-        <div
-          className={`relative z-10 text-center transition-transform duration-700 ease-in-out`}
-          style={{ transform: `translateX(${getTranslateX()})` }}
-        >
-          <h1 className="font-[Roobert TRIAL] font-light text-[100px] text-center leading-[100px] tracking-[-0.07em] px-8">
-            <span style={{ transform: `translateX(${getTranslateX()})` }}>
-              Sophisticated
-            </span>
-            <br />
-            <span
-              className={`block transition-transform duration-700 ease-in-out px-8`}
-              style={{ transform: `translateX(${getInnerSpanTranslateX()})` }}
+            <div
+              className={`absolute w-[500px] h-[500px] border border-dotted border-[#A0A4AB] rotate-45 -left-[400px] transition-opacity duration-500 ${
+                isRightHovered ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <LeftButton
+              to="/"
+              className="hover:scale-105 transition-transform w-[150px]"
+              onMouseEnter={() => setIsLeftHovered(true)}
+              onMouseLeave={() => setIsLeftHovered(false)}
             >
-              skincare
-            </span>
-          </h1>
-        </div>
+              DISCOVER A.I.
+            </LeftButton>
+          </div>
 
-        {/* Right Button + Border (fades when LEFT is hovered) */}
-        <div
-          className={`relative flex items-center justify-center transition-opacity duration-500 ${
-            isLeftHovered ? "opacity-0" : "opacity-100"
-          }`}
-        >
+          {/* Center Text (slides left/right) */}
           <div
-            className={`absolute w-[500px] h-[500px] border border-dotted border-[#A0A4AB] rotate-45 -right-[400px] transition-opacity duration-500 ${
+            className={`relative z-10 text-center transition-transform duration-700 ease-in-out`}
+            style={{ transform: `translateX(${getTranslateX()})` }}
+          >
+            <h1 className="font-[Roobert TRIAL] font-light text-[100px] leading-[100px] tracking-[-0.07em] max-w-[700px] mx-auto px-4 text-center">
+              <span style={{ transform: `translateX(${getTranslateX()})` }}>
+                Sophisticated
+              </span>
+              <br />
+              <span
+                className={`block transition-transform duration-700 ease-in-out px-8`}
+                style={{ transform: `translateX(${getInnerSpanTranslateX()})` }}
+              >
+                Skincare
+              </span>
+            </h1>
+          </div>
+
+          {/* Right Button + Border */}
+          <div
+            className={`relative flex items-center justify-center transition-opacity duration-500 ${
               isLeftHovered ? "opacity-0" : "opacity-100"
             }`}
-          />
-          <RightButton
-            to="/testing"
-            className="hover:scale-105 transition-transform"
-            onMouseEnter={() => setIsRightHovered(true)}
-            onMouseLeave={() => setIsRightHovered(false)}
           >
-            TAKE TEST
-          </RightButton>
+            <div
+              className={`absolute w-[500px] h-[500px] border border-dotted border-[#A0A4AB] rotate-45 -right-[400px] transition-opacity duration-500 ${
+                isLeftHovered ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <RightButton
+              to="/testing"
+              className="hover:scale-105 transition-transform w-[150px] flex items-end"
+              onMouseEnter={() => setIsRightHovered(true)}
+              onMouseLeave={() => setIsRightHovered(false)}
+            >
+              TAKE TEST
+            </RightButton>
+          </div>
+        </div>
+
+        {/* MOBILE/TABLET LAYOUT - visible below 1300px */}
+        <div className="xl:hidden flex flex-col items-center justify-center h-full relative z-10">
+          {/* Diamonds */}
+          <div className="absolute w-[400px] h-[400px] border border-dotted border-[2px] border-[#E5E7EB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 " />
+          <div className="absolute w-[350px] h-[350px] border border-dotted border-[2px] border-[#D1D5DB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 " />
+          <div className="absolute w-[300px] h-[300px] border border-dotted border-[2px] border-[#A0A4AB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 " />
+
+          {/* Centered Text */}
+          <div className="text-center z-10 px-6">
+            <h1 className="font-[Roobert TRIAL] font-light text-[60px] leading-[48px] tracking-[-0.03em] text-center mb-8">
+              Sophisticated
+              <br />
+              Skincare
+            </h1>
+            <Link to='/testing'>
+              <button className="bg-black text-white font-roobert px-6 py-3 text-[12px] leading-5 uppercase font-semibold tracking-tight">
+                ENTER EXPERIENCE
+              </button>
+            </Link>
+          </div>
         </div>
       </main>
 
       <footer className="pb-8">
-        <div className="px-8 w-[316px] h-[72px] text-left">
+        <div className="px-8 w-[400px] h-[72px] text-left">
           <p className="font-[Roobert TRIAL] font-normal text-[14px] leading-[24px] tracking-[0] uppercase">
             Skinstric developed an A.I. that creates a highly-personalised
             routine tailored to what your skin needs.

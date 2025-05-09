@@ -66,37 +66,40 @@ const Demographics = () => {
   const selectedData = getSelectedData();
 
   return (
-    <div className="h-screen flex flex-col bg-white-custom px-8">
-      {/* Header Section */}
-      <div className="fixed top-0 flex items-center h-[48px]">
+    <div className="h-screen flex flex-col bg-white-custom px-8 relative">
+      {/* Fixed Header */}
+      <div className="fixed top-0 left-0 right-0 z-10 bg-white-custom px-8 h-[48px] flex items-center">
         <Header />
       </div>
-      <h1 className="mt-16 font-bold font-roobert">A.I. ANALYSIS</h1>
-      <h1 className="text-[60px]">DEMOGRAPHICS</h1>
+  
+      {/* Top Text */}
+      <div className="mt-16 font-bold font-roobert">A.I. ANALYSIS</div>
+      <h1 className="text-[60px] max-md:text-[40px]">DEMOGRAPHICS</h1>
       <p className="text-[14px]">PREDICTED RACE & AGE</p>
-
-      <div className="flex-grow flex items-center justify-center mt-24">
-        <div className="w-full h-full flex">
+  
+      {/* Main Content Area */}
+      <div className="flex-grow overflow-y-auto max-lg:h-screen pb-32 mt-12">
+        <div className="w-full flex lg:flex-row flex-col gap-4">
           {/* LEFT COLUMN */}
-          <div className="flex-[3] pr-4 flex flex-col justify-start gap-[2px]">
+          <div className="lg:flex-[3] flex flex-col gap-[8px]">
             {/* RACE */}
             <div
-              className={`h-[20%] mb-[8px] border-t border-black flex flex-col p-2 font-semi-bold cursor-pointer ${
+              className={`max-lg:flex-row max-lg:justify-between flex flex-col h-[20%] border-t border-black p-2 font-semi-bold cursor-pointer ${
                 selectedCategory === "race"
                   ? "bg-black text-white"
                   : "bg-gray-100 hover:bg-gray-300"
               }`}
               onClick={() => setSelectedCategory("race")}
             >
-              <span className="mb-8 font-bold">
-                {raceData.length > 0 ? raceData[0].label : "N/A"}
+              <span className="mb-8 font-bold ma">
+                {raceData.length > 0 ? raceData[0].label.toUpperCase() : "N/A"}
               </span>
               <span className="font-bold">RACE</span>
             </div>
-
+  
             {/* AGE */}
             <div
-              className={`h-[20%] mb-[8px] border-t border-black flex flex-col p-2 font-semi-bold cursor-pointer ${
+              className={`max-lg:flex-row max-lg:justify-between flex flex-col h-[20%] border-t border-black p-2 font-semi-bold cursor-pointer ${
                 selectedCategory === "age"
                   ? "bg-black text-white"
                   : "bg-gray-100 hover:bg-gray-300"
@@ -108,10 +111,10 @@ const Demographics = () => {
               </span>
               <span className="font-bold">AGE</span>
             </div>
-
+  
             {/* SEX */}
             <div
-              className={`h-[20%] border-t border-black flex flex-col p-2 font-semi-bold cursor-pointer ${
+              className={`max-lg:flex-row max-lg:justify-between flex flex-col h-[20%] border-t border-black p-2 font-semi-bold cursor-pointer ${
                 selectedCategory === "sex"
                   ? "bg-black text-white"
                   : "bg-gray-100 hover:bg-gray-300"
@@ -124,64 +127,60 @@ const Demographics = () => {
               <span className="font-bold">SEX</span>
             </div>
           </div>
-
-          {/* Middle Column */}
-          <div className="flex-[12] p-4 bg-gray-100 border-t border-black relative">
-            <div className="text-[32px] font-semi-bold">
-              {/* Display the label of the highest race data */}
-              <div>
-                {selectedData.length > 0
-                  ? selectedData[0].label.charAt(0).toUpperCase() +
-                    selectedData[0].label.slice(1)
-                  : "No data"}
-              </div>
-              <div className="absolute bottom-4 right-4 w-96 h-96">
-                <svg viewBox="0 0 36 36" className="w-full h-full">
-                  <circle
-                    className="text-gray-300"
-                    stroke="currentColor"
-                    strokeWidth="1" // Thinner stroke
-                    fill="none"
-                    cx="18"
-                    cy="18"
-                    r="15.9155"
-                  />
-                  <circle
-                    className="text-black"
-                    stroke="currentColor"
-                    strokeWidth="1" // Thinner stroke
-                    fill="none"
-                    strokeDasharray={`${
-                      selectedData.length > 0
-                        ? selectedData[0].value.replace("%", "")
-                        : 0
-                    }, 100`} // Use the highest percentage value here
-                    transform="rotate(-90 18 18)"
-                    cx="18"
-                    cy="18"
-                    r="15.9155"
-                  />
-                  <text
-                    x="18"
-                    y="20.5"
-                    className="text-[4px] fill-black font-bold" // Smaller text
-                    textAnchor="middle"
-                  >
-                    {selectedData.length > 0 ? selectedData[0].value : "0%"}{" "}
-                    {/* Display percentage */}
-                  </text>
-                </svg>
-              </div>
+  
+          {/* MIDDLE COLUMN */}
+          <div className="lg:flex-[12] p-4 bg-gray-100 border-t border-black relative flex flex-col items-center justify-center">
+            <div className="text-[32px] font-semi-bold mb-8 w-[100%] relative top-0">
+              {selectedData.length > 0
+                ? selectedData[0].label.charAt(0).toUpperCase() +
+                  selectedData[0].label.slice(1)
+                : "No data"}
+            </div>
+            <div className="w-96 h-96 max-lg:w-64 max-lg:h-64 max-sm:w-48 max-sm:h-48">
+              <svg viewBox="0 0 36 36" className="w-full h-full">
+                <circle
+                  className="text-gray-300"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  fill="none"
+                  cx="18"
+                  cy="18"
+                  r="15.9155"
+                />
+                <circle
+                  className="text-black"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  fill="none"
+                  strokeDasharray={`${
+                    selectedData.length > 0
+                      ? selectedData[0].value.replace("%", "")
+                      : 0
+                  }, 100`}
+                  transform="rotate(-90 18 18)"
+                  cx="18"
+                  cy="18"
+                  r="15.9155"
+                />
+                <text
+                  x="18"
+                  y="20.5"
+                  className="text-[4px] fill-black font-bold"
+                  textAnchor="middle"
+                >
+                  {selectedData.length > 0 ? selectedData[0].value : "0%"}
+                </text>
+              </svg>
             </div>
           </div>
-
-          {/* Right Column */}
-          <div className="flex-[5] p-4 bg-gray-100 flex flex-col border-t border-black ml-4 w-full">
+  
+          {/* RIGHT COLUMN */}
+          <div className="lg:flex-[5] p-4 bg-gray-100 border-t border-black flex flex-col w-full">
             <div className="flex items-center justify-between py-2 font-bold">
               <span>{selectedCategory.toUpperCase()}</span>
               <span>A.I. CONFIDENCE</span>
             </div>
-
+  
             {selectedData.length === 0 ? (
               <p>No {selectedCategory} data available</p>
             ) : (
@@ -198,7 +197,7 @@ const Demographics = () => {
                       className="w-4 h-4"
                     />
                     <span className="px-2">
-                    {label.charAt(0).toUpperCase() + label.slice(1)}
+                      {label.charAt(0).toUpperCase() + label.slice(1)}
                     </span>
                   </div>
                   <span>{value}</span>
@@ -208,15 +207,14 @@ const Demographics = () => {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="h-28 ">
-        <div className="absolute bottom-0 left-0 px-8 pb-8">
-          <LeftButton to="/analysis">BACK</LeftButton>
-        </div>
-      </footer>
+  
+      {/* Fixed Back Button */}
+      <div className="fixed bottom-8 left-8 z-10">
+        <LeftButton to="/analysis">BACK</LeftButton>
+      </div>
     </div>
   );
+  
 };
 
 export default Demographics;

@@ -18,15 +18,13 @@ const Analysis = () => {
       // Stop the stream immediately – we'll re-request it on the camera page
       stream.getTracks().forEach((track) => track.stop());
 
-      // Slight delay just for UI polish, then navigate
       setTimeout(() => {
         setIsCameraLoading(false);
         navigate("/camera");
-      }, 1000); // adjust as needed
+      }, 1000); 
     } catch (error) {
       console.error("Camera access failed:", error);
       setIsCameraLoading(false);
-      // Optionally show an error message here
     }
   };
 
@@ -129,13 +127,13 @@ const Analysis = () => {
       </div>
 
       {/* Full-screen layout */}
-      <div className="flex h-screen">
+      <div className="flex h-screen max-xl:flex-col">
         {/* Left Half */}
-        <div className="w-1/2 flex items-center justify-center relative">
+        <div className="w-1/2 flex items-center justify-center relative max-xl:w-full max-xl:h-1/2">
           {/* Decorative diamonds */}
-          <div className="absolute w-[400px] h-[400px] border border-dotted border-[2px] border-[#E5E7EB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-fast" />
-          <div className="absolute w-[350px] h-[350px] border border-dotted border-[2px] border-[#D1D5DB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin" />
-          <div className="absolute w-[300px] h-[300px] border border-dotted border-[2px] border-[#A0A4AB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slow" />
+          <div className="absolute w-[400px] h-[400px] border border-dotted border-[2px] border-[#E5E7EB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-fast max-xl:w-[300px] max-xl:h-[300px]" />
+          <div className="absolute w-[350px] h-[350px] border border-dotted border-[2px] border-[#D1D5DB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin max-xl:w-[250px] max-xl:h-[250px]" />
+          <div className="absolute w-[300px] h-[300px] border border-dotted border-[2px] border-[#A0A4AB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slow max-xl:w-[200px] max-xl:h-[200px]" />
 
           <button className="relative z-10" onClick={handleCameraClick}>
             <img
@@ -146,19 +144,19 @@ const Analysis = () => {
           </button>
 
           <div className="absolute left-[calc(50%+60px)] top-1/2 transform -translate-y-1/2 z-10 flex items-center gap-2">
-            <div className="w-[100px] h-[2px] bg-black" />
-            <span className="text-md font-roobert font-semi-bold">
-              Access Camera
+            <div className="w-[100px] h-[2px] bg-black max-md:w-[50px]" />
+            <span className="text-lg font-roobert font-semi-bold max-md:text-sm">
+              ACCESS <br/> CAMERA
             </span>
           </div>
         </div>
 
         {/* Right Half */}
-        <div className="w-1/2 flex items-center justify-center relative">
+        <div className="w-1/2 flex items-center justify-center relative max-xl:w-full max-xl:h-1/2">
           {/* Decorative diamonds */}
-          <div className="absolute w-[400px] h-[400px] border border-dotted border-[2px] border-[#E5E7EB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-fast" />
-          <div className="absolute w-[350px] h-[350px] border border-dotted border-[2px] border-[#D1D5DB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin" />
-          <div className="absolute w-[300px] h-[300px] border border-dotted border-[2px] border-[#A0A4AB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slow" />
+          <div className="absolute w-[400px] h-[400px] border border-dotted border-[2px] border-[#E5E7EB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-fast max-xl:w-[300px] max-xl:h-[300px]" />
+          <div className="absolute w-[350px] h-[350px] border border-dotted border-[2px] border-[#D1D5DB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin max-xl:w-[250px] max-xl:h-[250px]" />
+          <div className="absolute w-[300px] h-[300px] border border-dotted border-[2px] border-[#A0A4AB] rotate-45 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 spin-slow max-xl:w-[200px] max-xl:h-[200px]" />
 
           <button className="relative z-10" onClick={handleGalleryClick}>
             <img
@@ -177,9 +175,9 @@ const Analysis = () => {
           />
 
           <div className="absolute right-[calc(50%+60px)] top-1/2 transform -translate-y-1/2 z-10 flex items-center gap-2 flex-row-reverse text-right">
-            <div className="w-[100px] h-[2px] bg-black" />
-            <span className="text-md font-roobert font-semi-bold">
-              Access Gallery
+            <div className="w-[100px] h-[2px] bg-black max-md:w-[50px]" />
+            <span className="text-lg font-roobert font-semi-bold max-md:text-sm">
+              ACCESS <br/> GALLERY
             </span>
           </div>
         </div>
