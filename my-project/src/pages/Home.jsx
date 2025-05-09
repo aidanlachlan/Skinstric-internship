@@ -11,9 +11,9 @@ export default function Home() {
 
   const getTranslateX = () => {
     if (isRightHovered) {
-      return "-33vw"; // Adjust this value as needed
+      return "-30vw"; // Adjust this value as needed
     } else if (isLeftHovered) {
-      return "33vw"; // Adjust this value as needed
+      return "30vw"; // Adjust this value as needed
     } else {
       return "0vw";
     }
@@ -21,9 +21,9 @@ export default function Home() {
 
   const getInnerSpanTranslateX = () => {
     if (isRightHovered) {
-      return "-5.7vw"; // Adjust this value for the inner span
+      return "-5.8vw"; // Adjust this value for the inner span
     } else if (isLeftHovered) {
-      return "5.7vw"; // Adjust this value for the inner span
+      return "5.8vw"; // Adjust this value for the inner span
     } else {
       return "0vw";
     }
@@ -63,10 +63,10 @@ export default function Home() {
 
           {/* Center Text (slides left/right) */}
           <div
-            className={`relative z-10 text-center transition-transform duration-700 ease-in-out`}
+            className={`relative z-10 text-center transition-transform duration-700 ease-in-out  mx-8`}
             style={{ transform: `translateX(${getTranslateX()})` }}
           >
-            <h1 className="font-[Roobert TRIAL] font-light text-[100px] leading-[100px] tracking-[-0.07em] max-w-[700px] mx-auto px-4 text-center">
+            <h1 className="font-[Roobert TRIAL] font-light text-[100px] leading-[100px] tracking-[-0.07em] max-w-[700px] px-4 text-center">
               <span style={{ transform: `translateX(${getTranslateX()})` }}>
                 Sophisticated
               </span>

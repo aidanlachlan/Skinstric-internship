@@ -7,24 +7,28 @@ const Camera = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null); // for capturing photo
   const [photo, setPhoto] = useState(null); // (optional) store captured image
+
   const navigate = useNavigate();
 
   const handleProceed = async () => {
     if (!photo) return;
-  
+
     const base64Image = photo.split(",")[1]; // Strip data:image/... prefix
     try {
-      const response = await fetch("https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ image: base64Image }),
-      });
-  
+      const response = await fetch(
+        "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ image: base64Image }),
+        }
+      );
+
       const result = await response.json();
       console.log("AI Response:", result);
-  
+
       if (result.success) {
         sessionStorage.setItem("demographicData", JSON.stringify(result.data));
         navigate("/demographics");
@@ -34,7 +38,7 @@ const Camera = () => {
     } catch (error) {
       console.error("Failed to upload image:", error);
     }
-  };  
+  };
 
   useEffect(() => {
     let stream;
@@ -119,33 +123,31 @@ const Camera = () => {
 
       {/* Capture Button */}
       {!photo && (
-        <div className="absolute top-0 left-0 w-full h-full z-10 flex justify-end items-center px-8">
+        <div className="absolute top-1/2 right-0 transform -translate-y-1/2 z-10 py-8 flex items-center justify-end lg:justify-center px-8">
           <span className="text-white">TAKE PICTURE</span>
           <img
             src="assets/white-camera.png"
             alt="Take Photo"
             onClick={handleCapture}
-            className="w-12 h-12 cursor-pointer ml-4"
+            className="w-12 h-12 cursor-pointer ml-4 max-lg:w-10 max-lg:h-10"
           />
         </div>
       )}
 
       {/* Footer */}
-      <footer className="absolute bottom-0 left-0 w-full z-10 p-4">
-        <div className="absolute bottom-8 left-8">
-          <Link to="/analysis">
-            <button className="mr-auto">
+      <footer className="absolute bottom-0 left-0 w-full z-10 flex items-center justify-center">
+        <Link to="/analysis">
+            <button className="mr-auto absolute bottom-8 left-8">
               <img
                 src="assets/buttin-icon-white.png"
                 alt=""
                 className="w-10 h-10"
               />
             </button>
-          </Link>
-        </div>
-        <div className=" flex flex-col items-center text-white text-center mt-4 mb-8">
+        </Link>
+        <div className="flex flex-col items-center text-white text-center mt-4 mb-8 max-lg:text-[14px] max-lg:mb-20">
           <div className="mb-2">TO GET BETTER RESULTS MAKE SURE TO HAVE</div>
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap justify-center gap-6 max-lg:flex-col">
             <div className="flex items-center">
               <img src="assets/Rectangle-2681.png" alt="" className="w-5 h-5" />
               <span className="ml-2">NEUTRAL EXPRESSION</span>
@@ -164,7 +166,7 @@ const Camera = () => {
           <div className="absolute bottom-8 right-8 z-10">
             <button
               onClick={handleProceed}
-              className="flex items-center text-white"
+              className="flex items-center justify-center text-white"
             >
               <span className="pr-4">PROCEED</span>
               <img
