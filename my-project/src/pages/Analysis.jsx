@@ -121,7 +121,7 @@ const Analysis = () => {
       {/* Top bar */}
       <div className="absolute top-0 left-0 right-0 px-8 bg-white-custom z-10">
         <div className="flex items-center justify-between h-[48px]">
-          <Header />
+          <Header subtitleText='INTRO'/>
         </div>
         <h1 className="mt-8 font-bold">TO START ANALYSIS</h1>
       </div>

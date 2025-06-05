@@ -106,7 +106,7 @@ const Demographics = () => {
     <div className="h-screen flex flex-col bg-white-custom px-8 relative">
       {/* Fixed Header */}
       <div className="fixed top-0 left-0 right-0 z-10 bg-white-custom px-8 h-[48px] flex items-center">
-        <Header />
+        <Header subtitleText='ANALYSIS'/>
       </div>
 
       {/* Top Text */}

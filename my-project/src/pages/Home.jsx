@@ -32,8 +32,8 @@ export default function Home() {
   return (
     <div className="relative h-screen w-full overflow-hidden flex flex-col">
       <div className="flex items-center justify-between bg-white-custom h-[48px] px-8">
-        <Header />
-        <button className="bg-black text-white font-roobert px-4 py-2 text-[10px] leading-4 uppercase font-semibold tracking-tight">
+        <Header subtitleText='INTRO'/>
+        <button className="bg-black text-white font-roobert px-4 py-2 text-[10px] leading-4 uppercase font-semibold tracking-tight cursor-not-allowed" >
           ENTER CODE
         </button>
       </div>
@@ -53,9 +53,10 @@ export default function Home() {
             />
             <LeftButton
               to="/"
-              className="hover:scale-105 transition-transform w-[150px]"
+              className="hover:scale-105 transition-transform w-[150px] cursor-not-allowed"
               onMouseEnter={() => setIsLeftHovered(true)}
               onMouseLeave={() => setIsLeftHovered(false)}
+              disabled={true}
             >
               DISCOVER A.I.
             </LeftButton>

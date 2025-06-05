@@ -59,7 +59,7 @@ const Testing = () => {
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
       <div className="flex items-center justify-between bg-white-custom h-[48px] px-8">
-        <Header />
+        <Header subtitleText='INTRO'/>
       </div>
       <h1 className="ml-8 mt-8 font-bold">TO START ANALYSIS</h1>
 
