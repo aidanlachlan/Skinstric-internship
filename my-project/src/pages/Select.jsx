@@ -45,9 +45,9 @@ const Select = () => {
               }}
               className={`diamond-button absolute w-[200px] h-[200px] bg-gray-100 border border-white border-4 transform hover:bg-gray-300 transition-all max-md:w-[150px] max-md:h-[150px] max-sm:w-[100px] max-sm:h-[100px]
       ${pos === "top" ? "-top-[2px] -left-[2px]" : ""}
-      ${pos === "right" ? "-top-[2px] right-[2px]" : ""}
-      ${pos === "left" ? "bottom-[2px] -left-[2px]" : ""}
-      ${pos === "bottom" ? "bottom-[2px] right-[2px]" : ""}
+      ${pos === "right" ? "-top-[2px] right-[2px] cursor-not-allowed" : ""}
+      ${pos === "left" ? "bottom-[2px] -left-[2px] cursor-not-allowed" : ""}
+      ${pos === "bottom" ? "bottom-[2px] right-[2px] cursor-not-allowed" : ""}
     `}
             >
               <span className="block transform -rotate-45 font-roobert font-bold whitespace-pre-line max-sm:text-[12px]">
